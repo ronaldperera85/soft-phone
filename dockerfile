@@ -12,7 +12,7 @@ RUN npm install
 # Copiar el resto del código de la aplicación
 COPY . .
 
-# Etapa 2: Run
+# Etapa 2: Run...
 FROM node:16-alpine
 
 WORKDIR /usr/src/app
