@@ -1,0 +1,19 @@
+name: Deploy to CapRover (Build on CapRover)
+
+on:
+  push:
+    branches: [ "main", "developer" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Trigger CapRover deployment webhook
+        run: |
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            curl -X POST "${{ secrets.CAPROVER_WEBHOOK_URL_MAIN }}"
+          elif [ "$GITHUB_REF_NAME" = "developer" ]; then
+            curl -X POST "${{ secrets.CAPROVER_WEBHOOK_URL_DEVELOPER }}"
+          fi
