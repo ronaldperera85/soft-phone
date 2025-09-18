@@ -35,13 +35,16 @@
     <!-- Elemento de Audio (invisible para el usuario) -->
     <audio id="remoteAudio"></audio>
 
-    <!-- Importamos la biblioteca SIP.js -->
-    <script src="https://cdn.jsdelivr.net/npm/sip.js@0.21.2/lib/api/info.min.js"></script>
+    <!-- 
+      IMPORTANTE: Cargamos la biblioteca SIP.js que está en nuestra carpeta 'public'.
+      Ya no dependemos de un CDN externo.
+    -->
+    <script src="/sip.js"></script>
     
     <!-- Cargamos la configuración desde el servidor -->
     <script src="/config.js"></script>
 
-    <!-- Nuestro código de la aplicación -->
-    <script src="app.js"></script>
+    <!-- Nuestro código de la aplicación (que ya actualizamos) -->
+    <script src="/app.js"></script>
 </body>
 </html>
