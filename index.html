@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebRTC Simple Softphone</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Mi Softphone Web (Issabel)</h1>
+    <div id="app">
+        <!-- Panel de Configuración -->
+        <div class="panel">
+            <h2>Configuración</h2>
+            <input type="text" id="servidor" placeholder="IP o Dominio de Issabel">
+            <input type="text" id="puerto" placeholder="Puerto WSS (ej: 8089)">
+            <input type="text" id="extension" placeholder="Tu Extensión">
+            <input type="password" id="clave" placeholder="Tu Clave (Secret)">
+            <p>Estado: <span id="status">Desconectado</span></p>
+        </div>
+
+        <!-- Panel de Llamada -->
+        <div class="panel">
+            <h2>Llamar</h2>
+            <input type="text" id="numeroADial" placeholder="Número a llamar">
+            <button id="btnLlamar">Llamar</button>
+            <button id="btnColgar" disabled>Colgar</button>
+        </div>
+
+        <!-- Elemento de Audio -->
+        <audio id="remoteAudio"></audio>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

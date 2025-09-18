@@ -1,13 +1,17 @@
 {
-  "name": "webrtc-softphone",
-  "version": "1.0.0",
-  "description": "WebRTC softphone for Issabel",
-  "main": "server.js",
+  "name": "soft-phone-moderno",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.1.2"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "sip.js": "^0.21.2"
   }
 }

@@ -1,27 +1,33 @@
-# Etapa 1: Build
-FROM node:16-alpine AS builder
+# --- ETAPA 1: CONSTRUIR LA APLICACIÓN CON VITE ---
+# Usamos una imagen de Node.js para tener las herramientas de construcción (npm, node)
+FROM node:18-alpine AS build
 
-WORKDIR /usr/src/app
+# Establecemos el directorio de trabajo dentro del contenedor
+WORKDIR /app
 
-# Copiar package.json y package-lock.json si existe
+# Copiamos package.json y package-lock.json para instalar dependencias
 COPY package*.json ./
 
-# Instalar las dependencias del servidor
+# Instalamos las dependencias del proyecto
 RUN npm install
 
-# Copiar el resto del código de la aplicación
+# Copiamos el resto del código fuente de la aplicación (src, index.html, etc.)
 COPY . .
 
-# Etapa 2: Run...
-FROM node:16-alpine
+# ¡El comando mágico! Esto ejecuta Vite en modo 'build' y crea la carpeta 'dist'
+RUN npm run build
 
-WORKDIR /usr/src/app
 
-# Copiar las dependencias instaladas y el código de la etapa de build
-COPY --from=builder /usr/src/app .
+# --- ETAPA 2: SERVIR LOS ARCHIVOS CONSTRUIDOS CON NGINX ---
+# Usamos una imagen de Nginx, que es un servidor web muy ligero y rápido
+FROM nginx:stable-alpine
 
-# Exponer el puerto que nuestra app usará
+# Copiamos los archivos estáticos optimizados desde la etapa de 'build' 
+# a la carpeta donde Nginx sirve los archivos por defecto.
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Le decimos a Docker que el contenedor escuchará en el puerto 80
 EXPOSE 80
 
-# Comando para correr la aplicación
-CMD [ "npm", "start" ]
+# Nginx se inicia automáticamente, por lo que no necesitamos un comando CMD.
+# Simplemente sirve el contenido de /usr/share/nginx/html.
